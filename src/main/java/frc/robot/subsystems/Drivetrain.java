@@ -38,29 +38,15 @@ public class Drivetrain extends SubsystemBase {
   private final SpeedControllerGroup leftMotorsGroup = new SpeedControllerGroup(leftMotors);
   private final SpeedControllerGroup rightMotorsGroup = new SpeedControllerGroup(rightMotors);
 
-  private final Encoder leftEncoder = new Encoder(
-      Constants.driveConstants.kLeftEncoder1,
-      Constants.driveConstants.kLeftEncoder2,
-      Constants.driveConstants.kLeftEncoder3,
-      Constants.driveConstants.kLeftEncoderReversed
-    );
-      
-  private final Encoder rightEncoder = new Encoder(
-    Constants.driveConstants.kRightEncoder1,
-    Constants.driveConstants.kRightEncoder2,
-    Constants.driveConstants.kRightEncoder3,
-    Constants.driveConstants.kRightEncoderReversed
-  );
+  private final CANEncoder leftEncoder = leftMotors[0].getEncoder();
+  private final CANEncoder rightEncoder = rightMotors[0].getEncoder();
+  
 
   /** Creates a new Drivetrain. */
   public Drivetrain() {
 
-    
-
     leftMotorsGroup.setInverted(Constants.driveConstants.kLeftReversed);
     rightMotorsGroup.setInverted(Constants.driveConstants.kRightReversed);
-
-
 
     m_drivetrain = new DifferentialDrive(leftMotorsGroup, rightMotorsGroup);
 
@@ -77,9 +63,20 @@ public class Drivetrain extends SubsystemBase {
   public void curvatureDrive(double throttle, double turn, boolean isQuickTurn) {
     m_drivetrain.curvatureDrive(throttle, turn, isQuickTurn);
   }
-
-  public double[] getEncoders() {
-
+  
+  public void setConversionFactors(int positionConversionFactor, int velocityConversionFactor) { 
+    leftEncoder.setPositionConversionFactor(positionConversionFactor);
+    rightEncoder.setPositionConversionFactor(positionConversionFactor);
+    leftEncoder.setVelocityConversionFactor(velocityConversionFactor);
+    rightEncoder.setVelocityConversionFactor(velocityConversionFactor);
+  }
+  
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(),rightEncoder.getVelocity());
+  }
+  
+  public void setMode(CANSparkMax motor) {
+    motor.setIdleMode(Constants.driveConstants.kIdleMode);
   }
 
   public void setVoltage(double leftVoltage, double rightVoltage) {
