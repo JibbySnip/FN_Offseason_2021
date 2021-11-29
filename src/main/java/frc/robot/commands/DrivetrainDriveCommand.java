@@ -12,13 +12,12 @@ import frc.robot.subsystems.Drivetrain;
 public class DrivetrainDriveCommand extends CommandBase {
   
   Drivetrain m_drivetrain;
-  Joystick left, right;
+  Joystick driver;
 
   /** Creates a new DrivetrainDriveCommand. */
-  public DrivetrainDriveCommand(Drivetrain drivetrain, Joystick leftJoystick, Joystick rightJoystick) {
+  public DrivetrainDriveCommand(Drivetrain drivetrain, Joystick driver) {
     m_drivetrain = drivetrain;
-    left = leftJoystick;
-    right = rightJoystick;
+    this.driver = driver;
 
     addRequirements(drivetrain);
   }
@@ -35,11 +34,11 @@ public class DrivetrainDriveCommand extends CommandBase {
   public void execute() {
     switch (Constants.driveConstants.driveMode) {
       case ARCADE:
-        m_drivetrain.arcadeDrive(-left.getY(), right.getX());
+        m_drivetrain.arcadeDrive(-driver.getRawAxis(1), driver.getRawAxis(4));
       case TANK:
-        m_drivetrain.tankDrive(-left.getY(), -right.getY());
+        m_drivetrain.tankDrive(-driver.getRawAxis(1), -driver.getRawAxis(3));
       case CURVATURE:
-        m_drivetrain.curvatureDrive(-left.getY(), right.getX(), false);
+        m_drivetrain.curvatureDrive(-driver.getRawAxis(1), driver.getRawAxis(4), driver.getRawButtonPressed(5));
     }
   }
 

@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalSource;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import frc.robot.subsystems.Drivetrain.DriveMode;
 
 /**
@@ -22,6 +24,8 @@ public final class Constants {
         
             public static int leftMotor1 = 9;
             public static int leftMotor2 = 8;
+			public static int leftMotor3;
+			public static int rightMotor3;
         
         
     }
@@ -32,7 +36,25 @@ public final class Constants {
         public static double kS;
         public static double kV;
         public static double kA;
-		public class driveMode {
-		}
+
+        public static boolean kLeftReversed;
+		public static boolean kRightReversed;
+
+		public static EncodingType kLeftEncoderReversed;
+
+		public static DigitalSource kLeftEncoder2;
+
+		public static DigitalSource kLeftEncoder1;
+
+		public static boolean kLeftEncoder3;
+
+		public static int kRightEncoder1;
+
+		public static int kRightEncoder2;
+
+		public static boolean kRightEncoder3;
+
+		public static EncodingType kRightEncoderReversed;
+        
     }
 }

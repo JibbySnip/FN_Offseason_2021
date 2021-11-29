@@ -20,7 +20,7 @@ import frc.robot.subsystems.Drivetrain;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   Drivetrain drivetrain = new Drivetrain();
-  Joystick leftDriver, rightDriver;
+  Joystick driver, manipulator;
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -31,7 +31,7 @@ public class RobotContainer {
   }
 
   private void setDefaultCommands() {
-    drivetrain.setDefaultCommand(new DrivetrainDriveCommand(drivetrain, leftDriver, rightDriver));
+    drivetrain.setDefaultCommand(new DrivetrainDriveCommand(drivetrain, driver));
   }
 
   /**
@@ -40,7 +40,9 @@ public class RobotContainer {
    * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
